@@ -1,38 +1,106 @@
-// ╔══════════════════════════════════════════════════════════════════╗
-// ║                     ER DIAGRAM — DBML                           ║
-// ╚══════════════════════════════════════════════════════════════════╝
-//
-// 📌 ЩО ПОТРІБНО ЗРОБИТИ
-// ──────────────────────────────────────────────────────────────────
-//  1. Побудуйте ER-діаграму вашої бази даних у будь-якому зручному
-//     інструменті — dbdiagram.io, draw.io, Lucidchart тощо.
-//
-//  2. Додайте зображення вашої фінальної ER-діаграми (можна вставити як посилання на зображення в інтернеті та обов'язково закомітити файл з діаграмою в репозиторій).
-//
-//  2. Кожен учасник команди підписує таблиці, які він створював:
-//
-//     [Ім'я] — назви таблиць через кому
-//     [Ім'я] — назви таблиць через кому
-//     [Ім'я] — назви таблиць через кому
-//
-//  4. У цьому файлі додайте DBML-код вашої схеми.
-//     Якщо використовуєте dbdiagram.io — там є кнопка експорту в DBML.
-//     Якщо draw.io або інший інструмент — скопіюйте схему вручну.
-//
-// ──────────────────────────────────────────────────────────────────
-// 💡 ПІДКАЗКА
-//
-//  DBML виглядає ось так (це лише приклад — не копіюйте):
-//
-//  Table users {
-//    id       bigint [primary key, increment]
-//    username varchar(100) [not null]
-//  }
-//
-//  Ref: posts.user_id > users.id
-//
-//  Повна документація: https://dbml.dbdiagram.io/docs/
-// ══════════════════════════════════════════════════════════════════
+Table locations {
+  location_id int [pk, increment]
+  location_name varchar
+  address varchar
+}
 
+Table staff {
+  staff_id int [pk, increment]
+  location_id int [not null, ref: > locations.location_id]
+  fullname varchar
+  role varchar
+  phone varchar
+  email varchar
+}
 
-// Вставте ваш DBML-код нижче 👇
+Table shift_schedules {
+  schedule_id int [pk, increment]
+  staff_id int [not null, ref: > staff.staff_id]
+  shift_date date
+  start_time time
+  end_time time
+  shift_role varchar
+}
+
+Table menu_categories {
+  category_id int [pk, increment]
+  category_name varchar
+}
+
+Table menu_items {
+  menu_item_id int [pk, increment]
+  category_id int [not null, ref: > menu_categories.category_id]
+  item_name varchar
+  price decimal
+  preparation_time int
+}
+
+Table ingredients {
+  ingredient_id int [pk, increment]
+  ingredient_name varchar
+  unit varchar
+}
+
+Table menu_item_ingredients {
+  menu_item_id int [pk, ref: > menu_items.menu_item_id]
+  ingredient_id int [pk, ref: > ingredients.ingredient_id]
+  quantity decimal
+}
+
+Table suppliers {
+  supplier_id int [pk, increment]
+  supplier_name varchar
+  contact_info varchar
+}
+
+Table ingredient_suppliers {
+  ingredient_id int [pk, ref: > ingredients.ingredient_id]
+  supplier_id int [pk, ref: > suppliers.supplier_id]
+  cost decimal
+}
+
+Table basic_inventory {
+  inventory_id int [pk, increment]
+  location_id int [not null, ref: > locations.location_id]
+  ingredient_id int [not null, ref: > ingredients.ingredient_id]
+  quantity_available int
+}
+
+Table customers {
+  customer_id int [pk, increment]
+  customer_name varchar
+  phone varchar
+  email varchar
+}
+
+Table orders {
+  order_id int [pk, increment]
+  location_id int [not null, ref: > locations.location_id]
+  customer_id int [not null, ref: > customers.customer_id]
+  order_type varchar
+  status varchar
+  created_at datetime
+}
+
+Table order_items {
+  order_item_id int [pk, increment]
+  order_id int [not null, ref: > orders.order_id]
+  menu_item_id int [not null, ref: > menu_items.menu_item_id]
+  quantity int
+}
+
+Table reservations {
+  reservation_id int [pk, increment]
+  location_id int [not null, ref: > locations.location_id]
+  customer_id int [not null, ref: > customers.customer_id]
+  reservation_datetime datetime
+  table_number int
+}
+
+Table customer_feedback {
+  feedback_id int [pk, increment]
+  order_id int [not null, ref: > orders.order_id]
+  customer_id int [not null, ref: > customers.customer_id]
+  rating int
+  comment text
+}
