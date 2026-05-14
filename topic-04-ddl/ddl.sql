@@ -75,13 +75,13 @@ CREATE TABLE restaurant.shift_schedules (
 
 CREATE TABLE restaurant.menu_categories (
   category_id bigserial PRIMARY KEY,
-  category_name text NOT NULL
+  category_name varchar(30) NOT NULL
 );
 
 CREATE TABLE restaurant.menu_items (
   menu_item_id bigserial PRIMARY KEY,
   category_id bigint NOT NULL,
-  item_name text NOT NULL,
+  item_name varchar(30) NOT NULL,
   price numeric(10,2) NOT NULL,
   preparation_time int NOT NULL,
 
@@ -92,8 +92,8 @@ CREATE TABLE restaurant.menu_items (
 
 CREATE TABLE restaurant.ingredients (
   ingredient_id bigserial PRIMARY KEY,
-  ingredient_name text NOT NULL,
-  unit text NOT NULL
+  ingredient_name varchar(30) NOT NULL,
+  unit varchar(10) NOT NULL
 );
 
 CREATE TABLE restaurant.menu_item_ingredients (
@@ -106,7 +106,7 @@ CREATE TABLE restaurant.menu_item_ingredients (
 CREATE TABLE restaurant.suppliers (
   supplier_id bigserial PRIMARY KEY,
   supplier_name varchar(30) NOT NULL,
-  contact_info text
+  contact_info varchar(40)
 );
 
 CREATE TABLE restaurant.ingredient_suppliers (
