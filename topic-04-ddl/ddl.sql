@@ -26,7 +26,52 @@
 -- ================================================================
 
 -- Add your DDL below this line
+
 CREATE SCHEMA IF NOT EXISTS restaurant;
+
+-- =====================================================
+-- Taras Tkhir
+-- HR + Structure Module
+-- Tables: locations, staff, shift_schedules
+-- =====================================================
+
+CREATE TABLE restaurant.locations (
+    location_id bigserial PRIMARY KEY,
+    location_name varchar(50) NOT NULL,
+    address varchar(100) NOT NULL
+);
+
+CREATE TABLE restaurant.staff (
+    staff_id bigserial PRIMARY KEY,
+    location_id bigint,
+    full_name varchar(50),
+    role varchar(50),
+    phone varchar(50),
+    email varchar(255),
+
+    FOREIGN KEY (location_id)
+    REFERENCES restaurant.locations(location_id)
+);
+
+CREATE TABLE restaurant.shift_schedules (
+    schedule_id bigserial PRIMARY KEY,
+    staff_id bigint,
+    shift_date date,
+    start_time time,
+    end_time time,
+    shift_role varchar(50),
+
+    FOREIGN KEY (staff_id)
+    REFERENCES restaurant.staff(staff_id)
+);
+
+-- =====================================================
+-- Robert Hubskyi
+-- Kitchen + Inventory Module
+-- Tables: menu_categories, menu_items, ingredients,
+-- menu_item_ingredients, suppliers,
+-- ingredient_suppliers, basic_inventory
+-- =====================================================
 
 CREATE TABLE restaurant.menu_categories (
   category_id bigserial PRIMARY KEY,
@@ -71,12 +116,6 @@ CREATE TABLE restaurant.ingredient_suppliers (
   PRIMARY KEY(ingredient_id, supplier_id)
 );
 
-CREATE TABLE restaurant.locations (
-    location_id bigserial PRIMARY KEY,
-    location_name varchar(50) NOT NULL,
-    address varchar(100) NOT NULL
-);
-
 CREATE TABLE restaurant.basic_inventory (
   inventory_id bigserial PRIMARY KEY,
   ingredient_id bigint NOT NULL REFERENCES restaurant.ingredients(ingredient_id),
@@ -85,29 +124,12 @@ CREATE TABLE restaurant.basic_inventory (
   UNIQUE(ingredient_id, location_id)
 );
 
-CREATE TABLE restaurant.staff (
-    staff_id bigserial PRIMARY KEY,
-    location_id bigint,
-    full_name varchar(50),
-    role varchar(50),
-    phone varchar(50),
-    email varchar(255),
-
-    FOREIGN KEY (location_id)
-    REFERENCES restaurant.locations(location_id)
-);
-
-CREATE TABLE restaurant.shift_schedules (
-    schedule_id bigserial PRIMARY KEY,
-    staff_id bigint,
-    shift_date date,
-    start_time time,
-    end_time time,
-    shift_role varchar(50),
-
-    FOREIGN KEY (staff_id)
-    REFERENCES restaurant.staff(staff_id)
-);
+-- =====================================================
+-- Oleksandr Sydorskyi
+-- Business Process Module
+-- Tables: customers, orders, order_items,
+-- reservations, customer_feedback
+-- =====================================================
 
 CREATE TABLE restaurant.customers (
   customer_id bigserial PRIMARY KEY,
@@ -191,6 +213,11 @@ CREATE TABLE restaurant.customer_feedback (
         CHECK (rating BETWEEN 1 AND 5)
 );
 
+-- =====================================================
+-- Shared Work
+-- Indexes
+-- =====================================================
+
 CREATE INDEX idx_menu_items_category_id
 ON restaurant.menu_items(category_id);
 
@@ -220,5 +247,4 @@ ON restaurant.reservations(customer_id);
 
 CREATE INDEX idx_customer_feedback_order_id
 ON restaurant.customer_feedback(order_id);
-
 
