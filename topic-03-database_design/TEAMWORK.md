@@ -6,10 +6,11 @@
 
 ## Таблиця внесків
 
-| Учасник | Роль у команді | Що зроблено | Артефакти | файли |
-| Taras Tkhir | HR & Structure Developer | Реалізував структуру ресторанів, персонал і систему змін працівників. Створив таблиці Locations, Staff, ShiftSchedules та зв’язки між ними. | ERD diagram, schema.sql |
-| Robert Hubskyi | Kitchen & Inventory Developer | Реалізував меню, інгредієнти, інвентар і постачальників. Створив M:N зв’язки через проміжні таблиці MenuItemIngredients та IngredientSuppliers. | ERD diagram, schema.sql |
-| Oleksandr Sydorskyi | Business Process Developer | Реалізував систему замовлень, бронювання, відгуки клієнтів і таблицю Customers. Створив Orders, OrderItems, Reservations, CustomerFeedback та зв’язки між ними. | ERD diagram, schema.sql |
+| Учасник | Роль у команді | Що зроблено | Артефакти | Файли |
+|---|---|---|---|---|
+| Taras Tkhir | HR & Structure Developer | Реалізував структуру ресторанів, персонал і систему змін працівників. Створив таблиці `locations`, `staff`, `shift_schedules` та зв’язки між ними. | ERD diagram, DBML schema | er_diagram.png, schema.dbml |
+| Robert Hubskyi | Kitchen & Inventory Developer | Реалізував меню, інгредієнти, інвентар і постачальників. Створив M:N зв’язки через проміжні таблиці `menu_item_ingredients` та `ingredient_suppliers`. | ERD diagram, DBML schema | er_diagram.png, schema.dbml |
+| Oleksandr Sydorskyi | Business Process Developer | Реалізував систему замовлень, бронювання, відгуки клієнтів і таблицю `customers`. Створив `orders`, `order_items`, `reservations`, `customer_feedback` та зв’язки між ними. | ERD diagram, DBML schema | er_diagram.png, schema.dbml |
 
 ## Контекст теми
 
