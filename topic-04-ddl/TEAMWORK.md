@@ -30,3 +30,7 @@
 
 3. Як перевіряли відповідність DDL вашій ER-діаграмі:
    Команда перевіряла відповідність через foreign keys, relationship lines та структуру таблиць. Також DDL-скрипт тестувався у PostgreSQL для перевірки коректності створення schema, tables, constraints та indexes.
+
+
+ПОСИЛАННЯ НА ВІДЕО:
+ https://drive.google.com/file/d/10h9XcYaT8CmaToKqenyL9Rtx87yF8qc5/view?usp=sharing
